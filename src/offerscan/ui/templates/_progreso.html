@@ -4,6 +4,9 @@
 <div id="progreso" class="card progress" {% if state.status == 'running' %}hx-get="/progreso" hx-trigger="every 1s" hx-swap="outerHTML"
      hx-on::send-error="this.querySelector('.conn-lost').hidden = false"{% endif %}>
   <h2>Progreso</h2>
+  {% if state.status in ('done', 'error') %}
+    <button type="button" class="ghost" hx-post="/progreso/limpiar" hx-target="#progreso" hx-swap="outerHTML">Limpiar progreso</button>
+  {% endif %}
   {% if state.status == 'running' %}
     <div class="alert error conn-lost" role="alert" hidden><strong>Se ha perdido la conexión con offerscan.</strong> ¿Has cerrado la terminal donde se ejecuta? Vuelve a lanzar <code>offerscan ui</code> y repite la búsqueda.</div>
   {% endif %}
@@ -21,6 +24,9 @@
       {% if state.status == 'running' %}<span class="spinner"></span>{% endif %}
       <strong>{{ state.stage }}</strong>
       {% if state.stage == 'Evaluando' %} · {{ state.evaluated }} ofertas puntuadas{% endif %}
+      {% if state.status == 'running' and state.stage == 'Rastreando' %}
+        <button type="button" class="ghost" hx-post="/parar" hx-target="#progreso" hx-swap="outerHTML">Parar búsqueda</button>
+      {% endif %}
     </p>
     {% if state.filters %}
     <p class="filter-line">{{ state.filters.keywords | join(', ') }}{% if state.filters.locations %} · {{ state.filters.locations | join(', ') }}{% endif %}</p>
@@ -50,7 +56,7 @@
       </div>
     {% elif state.status == 'done' %}
       <div class="alert ok" role="status">
-        <strong>Búsqueda terminada.</strong>
+        <strong>{{ 'Búsqueda detenida.' if state.stopped else 'Búsqueda terminada.' }}</strong>
         <ul>{% for line in state.summary %}<li>{{ line }}</li>{% endfor %}</ul>
         {% if failed_portals %}
           {% set names = failed_portals | map(attribute='name') | map('portal_name') | join(', ') %}

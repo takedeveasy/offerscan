@@ -193,6 +193,7 @@ class SearchHooks:
     source_done: Callable[[SourceResult], None] = lambda result: None
     item: Callable[[str, int], None] = lambda source, n: None
     evaluated: Callable[[int], None] = lambda n: None
+    should_stop: Callable[[], bool] = lambda: False
 
 
 @dataclass
@@ -203,6 +204,7 @@ class SearchSummary:
     matches: dict[str, int] = field(default_factory=dict)
     engine: str = ""
     notes: list[str] = field(default_factory=list)
+    stopped: bool = False
 
 
 def crawl_stage(
@@ -216,8 +218,12 @@ def crawl_stage(
     hooks = hooks or SearchHooks()
     results: list[SourceResult] = []
     for name in sources:
+        if hooks.should_stop():
+            break
         hooks.source_started(name)
-        part = run_crawl([name], search_cfg, settings, db, max_pages=max_pages, on_item=hooks.item)
+        part = run_crawl(
+            [name], search_cfg, settings, db, max_pages=max_pages, on_item=hooks.item, should_stop=hooks.should_stop
+        )
         results += part
         hooks.source_done(part[0])
     return results
@@ -239,6 +245,9 @@ def run_search(
     summary = SearchSummary(engine=engine_name, notes=[note] if note else [])
     hooks.stage("Rastreando")
     summary.crawl = crawl_stage(db, settings, cfg, filters.sources, filters.max_pages, hooks)
+    if hooks.should_stop():
+        summary.stopped = True
+        return summary
     hooks.stage("Evaluando")
     summary.prepared, summary.evaluation = evaluate_stage(
         db, settings, cfg, engine_name, on_progress=hooks.evaluated

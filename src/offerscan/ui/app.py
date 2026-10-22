@@ -252,6 +252,16 @@ def create_app(
         save_search(filters)
         return page(request, "_progreso.html", state=manager.snapshot())
 
+    @app.post("/parar", response_class=HTMLResponse)
+    def search_stop(request: Request):
+        manager.stop()
+        return page(request, "_progreso.html", state=manager.snapshot())
+
+    @app.post("/progreso/limpiar", response_class=HTMLResponse)
+    def progress_clear(request: Request):
+        manager.clear()
+        return page(request, "_progreso.html", state=manager.snapshot())
+
     @app.get("/progreso", response_class=HTMLResponse)
     def progress(request: Request):
         state = manager.snapshot()

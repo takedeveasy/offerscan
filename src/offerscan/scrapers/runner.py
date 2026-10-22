@@ -39,6 +39,7 @@ async def _crawl_source(
     max_pages: int | None,
     dev: bool,
     on_item: Callable[[str, int], None] | None,
+    should_stop: Callable[[], bool] | None = None,
 ) -> tuple[SourceResult, list[dict]]:
     result = SourceResult(name)
     items: list[dict] = []
@@ -56,6 +57,8 @@ async def _crawl_source(
             items.append(item)
             if on_item:
                 on_item(name, len(items))
+            if should_stop and should_stop():
+                break
     except Exception as exc:  # one broken portal must never abort the whole run
         result.error = f"{type(exc).__name__}: {exc}"
         log.warning("%s fallo: %s", name, result.error)
@@ -119,6 +122,7 @@ def crawl(
     max_pages: int | None = None,
     dev: bool = False,
     on_item: Callable[[str, int], None] | None = None,
+    should_stop: Callable[[], bool] | None = None,
 ) -> list[SourceResult]:
     """Crawl each source sequentially; persist raw JSONL, normalized offers and a run row."""
     results: list[SourceResult] = []
@@ -126,11 +130,15 @@ def crawl(
     raw_dir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     for name in sources:
+        if should_stop and should_stop():
+            break
         if name not in REGISTRY:
             results.append(SourceResult(name, error="adaptador desconocido"))
             continue
         result, items = asyncio.run(
-            _crawl_source(name, search_cfg, settings, max_pages=max_pages, dev=dev, on_item=on_item)
+            _crawl_source(
+                name, search_cfg, settings, max_pages=max_pages, dev=dev, on_item=on_item, should_stop=should_stop
+            )
         )
         kept = post_filter(name, items, search_cfg)
         result.filtered = len(items) - len(kept)

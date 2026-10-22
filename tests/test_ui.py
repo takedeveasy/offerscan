@@ -296,3 +296,32 @@ def test_laya_down_blocks_search_before_crawling(ctx, monkeypatch):
     resp = client.post("/buscar", data={**FORM, "engine": "laya"})
     assert resp.status_code == 422 and "laya.ps1" in resp.text
     assert calls == []
+
+
+def test_stop_button_ends_a_running_search(tmp_path):
+    settings = Settings(config_dir=ROOT / "config", data_dir=tmp_path / "data", reports_dir=tmp_path / "reports")
+
+    def slow_runner(filters: SearchFilters, hooks: SearchHooks) -> SearchSummary:
+        hooks.stage("Rastreando")
+        while not hooks.should_stop():
+            time.sleep(0.01)
+        return SearchSummary(engine="heuristic", stopped=True)
+
+    app = create_app(settings, runner=slow_runner)
+    client = TestClient(app, base_url=BASE)
+    assert client.post("/buscar", data=FORM).status_code == 200
+    assert "Parar búsqueda" in client.get("/progreso").text
+    assert "Deteniendo" in client.post("/parar").text
+    app.state.manager.join(20)
+    done = client.get("/progreso").text
+    assert "Búsqueda detenida" in done and "Parar búsqueda" not in done
+    assert client.post("/parar").status_code == 200  # nothing running: harmless
+
+
+def test_clear_progress_forgets_the_last_run(ctx):
+    client, app, calls, release = ctx
+    assert client.post("/buscar", data=FORM).status_code == 200
+    wait_done(app)
+    assert "Limpiar progreso" in client.get("/progreso").text
+    cleared = client.post("/progreso/limpiar").text
+    assert "Todavía no has lanzado" in cleared and "Búsqueda terminada" not in cleared
