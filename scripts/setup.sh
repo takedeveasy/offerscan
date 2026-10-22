@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instala radar en este directorio (macOS, Linux y Git Bash en Windows).
+# Instala offerscan en este directorio (macOS, Linux y Git Bash en Windows).
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
@@ -61,6 +61,5 @@ if [[ -x "$root/.venv/bin/offerscan" ]]; then
   echo "  source .venv/bin/activate"
   echo "  offerscan ui"
 else
-  echo "  .venv\\Scripts\\Activate.ps1"
-  echo "  offerscan ui"
+  echo "  .venv\\Scripts\\offerscan ui"
 fi

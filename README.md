@@ -4,6 +4,8 @@ Herramienta local para juniors en España: rastrea ofertas en hasta 13 portales 
 
 Todo corre en **tu ordenador**. No hay cuenta, no hay nube y no hace falta pagar ninguna API.
 
+![Resultados de una búsqueda en offerscan](docs/img/resultados.png)
+
 ## 1. Qué necesitas
 
 - Un PC con **Windows, macOS o Linux**
@@ -44,9 +46,10 @@ Desde esa terminal, **en la carpeta del proyecto**:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
-.\.venv\Scripts\Activate.ps1
-offerscan ui
+.\.venv\Scripts\offerscan ui
 ```
+
+En Windows, los comandos `offerscan …` de este README se escriben como `.\.venv\Scripts\offerscan …` (por ejemplo `.\.venv\Scripts\offerscan doctor`). Así no hace falta activar el entorno, algo que Windows bloquea por defecto.
 
 **macOS y Linux:**
 
@@ -74,11 +77,10 @@ Al final verás `Navegador listo` y `Listo. Arranca la interfaz con:`. Si el nav
 
 ```powershell
 py -3 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[ui]"
+.\.venv\Scripts\python -m pip install -e ".[ui]"
 copy .env.example .env
-offerscan install-browser
-offerscan ui
+.\.venv\Scripts\offerscan install-browser
+.\.venv\Scripts\offerscan ui
 ```
 
 **macOS y Linux**
@@ -94,7 +96,9 @@ offerscan ui
 
 Se abre http://127.0.0.1:8765 (solo en tu máquina). Para parar: Ctrl+C en la terminal.
 
-Cada vez que quieras usarlo, activa el entorno y lanza `offerscan ui` (los mismos dos últimos comandos de tu sistema).
+Cada vez que quieras usarlo, abre una terminal en la carpeta del proyecto y lanza la interfaz: `.\.venv\Scripts\offerscan ui` en Windows, o `source .venv/bin/activate` y `offerscan ui` en macOS y Linux.
+
+Para comprobar que todo está bien, lanza `offerscan doctor`. Es normal que salga **AVISO** en `JEV_API_KEY`, `Credenciales InfoJobs` y `Servidor Laya`: son extras opcionales y sin ellos el programa funciona.
 
 ### El navegador para portales que bloquean
 
@@ -155,7 +159,9 @@ Hay dos ejemplos (`backend-python-madrid` y `frontend-react-remote`) que puedes 
 | JobFluent a 0 ofertas | Solo tiene Madrid, Barcelona, Valencia y remoto. |
 | Remotive a 0 ofertas | Su robots.txt no permite su API; ver `config/search.yaml`. |
 | «Laya no responde» | Elige motor **Heurístico**, o instala Laya (apartado extra). |
-| `offerscan` no se reconoce | No has activado `.venv`. Repite `Activate.ps1` o `source .venv/bin/activate`. |
+| `offerscan` no se reconoce | En Windows escríbelo como `.\.venv\Scripts\offerscan`. En macOS y Linux, activa antes el entorno con `source .venv/bin/activate`. |
+| «la ejecución de scripts está deshabilitada en este sistema» | Has intentado lanzar `Activate.ps1`. No hace falta: usa `.\.venv\Scripts\offerscan ui`. |
+| `OSError: [Errno 2] No such file or directory` con una ruta muy larga (Windows) | La carpeta está demasiado anidada para Windows. Mueve el proyecto a una ruta corta (por ejemplo `C:\offerscan`), borra `.venv` y repite el script. |
 
 Comprueba el entorno:
 

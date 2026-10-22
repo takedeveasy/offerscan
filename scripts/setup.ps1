@@ -1,4 +1,4 @@
-﻿# Instala radar en este directorio (Windows).
+﻿# Instala offerscan en este directorio (Windows).
 # Uso: powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
@@ -58,9 +58,8 @@ $browserOk = ($LASTEXITCODE -eq 0)
 Write-Host ""
 if (-not $browserOk) {
     Write-Host "AVISO: el navegador no quedó listo. El resto funciona; para InfoJobs, Indeed y Glassdoor"
-    Write-Host "repite más tarde (con el entorno activado):  offerscan install-browser"
+    Write-Host "repite más tarde:  .\.venv\Scripts\offerscan install-browser"
     Write-Host ""
 }
 Write-Host "Listo. Arranca la interfaz con:"
-Write-Host "  .\.venv\Scripts\Activate.ps1"
-Write-Host "  offerscan ui"
+Write-Host "  .\.venv\Scripts\offerscan ui"
