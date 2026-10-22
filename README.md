@@ -4,7 +4,7 @@ Herramienta local para juniors en España: rastrea ofertas en hasta 13 portales 
 
 Todo corre en **tu ordenador**. No hay cuenta, no hay nube y no hace falta pagar ninguna API.
 
-![Resultados de una búsqueda en offerscan](docs/img/resultados.png)
+![Resultados: ofertas puntuadas para revisar y marcar como junior o no](docs/img/resultados.png)
 
 ## 1. Qué necesitas
 
@@ -120,6 +120,8 @@ offerscan doctor                   # la fila «Navegador stealth» debe decir OK
 
 En **Búsqueda**:
 
+![Pantalla de búsqueda: tecnologías, provincias, portales y motor](docs/img/busqueda.png)
+
 1. Deja **Python** (o tu stack) y **Madrid** / **Remoto**.
 2. Marca solo **Tecnoempleo** la primera vez. InfoJobs a veces pide captcha; LinkedIn está restringido por sus condiciones de uso.
 3. Motor: **Heurístico** (no hace falta ningún servidor extra).
@@ -142,6 +144,8 @@ En «Qué filtra cada portal», debajo de las casillas, tienes el detalle de cad
 En **Juniors** crea un perfil con tu stack, provincias y salario mínimo. **Sin nombre, email ni teléfono.**
 
 Hay dos ejemplos (`backend-python-madrid` y `frontend-react-remote`) que puedes duplicar.
+
+![Perfiles junior con su stack y las ofertas emparejadas](docs/img/juniors.png)
 
 ## 6. Si algo falla
 
