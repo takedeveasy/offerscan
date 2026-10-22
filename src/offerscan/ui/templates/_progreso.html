@@ -1,6 +1,12 @@
 {% set ST = {'pendiente': 'Pendiente', 'rastreando': 'Rastreando', 'hecho': 'Hecho', 'error': 'Error'} %}
-<div id="progreso" class="card progress" {% if state.status == 'running' %}hx-get="/progreso" hx-trigger="every 1s" hx-swap="outerHTML"{% endif %}>
+{% set ok_portals = state.portals.values() | selectattr('status', 'equalto', 'hecho') | list %}
+{% set failed_portals = state.portals.values() | selectattr('status', 'equalto', 'error') | list %}
+<div id="progreso" class="card progress" {% if state.status == 'running' %}hx-get="/progreso" hx-trigger="every 1s" hx-swap="outerHTML"
+     hx-on::send-error="this.querySelector('.conn-lost').hidden = false"{% endif %}>
   <h2>Progreso</h2>
+  {% if state.status == 'running' %}
+    <div class="alert error conn-lost" role="alert" hidden><strong>Se ha perdido la conexión con offerscan.</strong> ¿Has cerrado la terminal donde se ejecuta? Vuelve a lanzar <code>offerscan ui</code> y repite la búsqueda.</div>
+  {% endif %}
   {% if problems %}
     <div class="alert error">{% for p in problems %}<p>{{ p }}</p>{% endfor %}</div>
   {% endif %}
@@ -32,12 +38,31 @@
       {% endfor %}
     </ul>
     {% if state.status == 'error' %}
-      <div class="alert error"><strong>La búsqueda se detuvo.</strong> {{ state.error }}</div>
+      <div class="alert error" role="alert"><strong>La búsqueda se detuvo.</strong> {{ state.error }}
+        <p class="small">Corrige lo que indica el mensaje y pulsa <strong>Buscar</strong> otra vez.</p>
+      </div>
+    {% elif state.status == 'done' and failed_portals and not ok_portals %}
+      <div class="alert error" role="alert">
+        <strong>Ningún portal ha devuelto ofertas.</strong>
+        <p>En cada portal, arriba, tienes el motivo. Suele ser un bloqueo temporal: espera unos minutos y repite,
+          o prueba solo con <strong>Tecnoempleo</strong>, que es el más estable.</p>
+        <p><a class="button ghost" href="/progreso/resultados">Ver ofertas guardadas antes</a></p>
+      </div>
     {% elif state.status == 'done' %}
-      <div class="alert ok">
+      <div class="alert ok" role="status">
         <strong>Búsqueda terminada.</strong>
         <ul>{% for line in state.summary %}<li>{{ line }}</li>{% endfor %}</ul>
-        <p><a class="button" href="/resultados?bucket=top{% if state.filters %}&junior_salary_max={{ state.filters.junior_salary_max }}{% if state.filters.salary_min %}&salary_min={{ state.filters.salary_min }}{% endif %}{% endif %}">Ver resultados</a></p>
+        {% if failed_portals %}
+          {% set names = failed_portals | map(attribute='name') | map('portal_name') | join(', ') %}
+          <p class="warn small">{{ failed_portals | length }} {{ 'portal no ha' if failed_portals | length == 1 else 'portales no han' }} respondido ({{ names }}); el resto se ha guardado igualmente.</p>
+        {% endif %}
+        {% if auto_redirect %}
+          <p class="redirect-note small" hx-get="/progreso/resultados" hx-trigger="load delay:4s" hx-swap="none">
+            Te llevo a los resultados en unos segundos…
+            <button type="button" class="ghost" hx-on:click="this.closest('.redirect-note').remove()">Quedarme aquí</button>
+          </p>
+        {% endif %}
+        <p><a class="button" href="/progreso/resultados">Ver resultados</a></p>
       </div>
     {% endif %}
   {% endif %}

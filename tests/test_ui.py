@@ -91,7 +91,7 @@ def test_search_validation_and_start(ctx):
     wait_done(app)
     assert calls[0].keywords == ["python", "react"] and calls[0].locations == ["Madrid"]
     done = client.get("/progreso").text
-    assert "Búsqueda terminada" in done and "hx-trigger" not in done and "/resultados?bucket=top" in done
+    assert "Búsqueda terminada" in done and "hx-trigger" not in done and 'href="/progreso/resultados"' in done
     # the search was saved and can be reloaded
     assert (Path(app.state.settings.config_dir) / "searches" / "python-react-madrid.yaml").exists()
     assert "python-react-madrid" in client.get("/buscar").text
@@ -113,9 +113,10 @@ def test_only_one_run_at_a_time(ctx):
     wait_done(app)
 
 
-def test_runner_failure_is_reported(tmp_path):
+def test_runner_failure_is_reported(tmp_path, monkeypatch):
     from offerscan.ai.laya import LayaUnavailable
 
+    monkeypatch.setattr("offerscan.service.laya_available", lambda url: True)  # up at start, gone mid-run
     settings = Settings(config_dir=tmp_path / "config", data_dir=tmp_path / "d")
 
     def boom(filters, hooks):
@@ -125,8 +126,72 @@ def test_runner_failure_is_reported(tmp_path):
     client = TestClient(app, base_url=BASE)
     client.post("/buscar", data={**FORM, "engine": "laya"})
     app.state.manager.join(5)
-    html = client.get("/progreso").text
+    html = client.get("/progreso", headers={"HX-Request": "true"}).text
     assert "La búsqueda se detuvo" in html and "Laya no responde" in html
+    assert "Te llevo a los resultados" not in html
+
+
+def portal_app(tmp_path, outcomes: dict[str, str]):
+    """App whose fake run finishes with each portal either "ok" or failing with the given error."""
+    settings = Settings(config_dir=tmp_path / "config", data_dir=tmp_path / "d")
+
+    def runner(filters, hooks):
+        results = []
+        for name, error in outcomes.items():
+            hooks.source_started(name)
+            result = SourceResult(name, error=error) if error != "ok" else SourceResult(name, parsed=5, stored=5)
+            hooks.source_done(result)
+            results.append(result)
+        return SearchSummary(crawl=results, engine="heuristic")
+
+    app = create_app(settings, runner=runner)
+    client = TestClient(app, base_url=BASE)
+    client.post("/buscar", data={**FORM, "sources": list(outcomes)})
+    wait_done(app)
+    return client
+
+
+def test_finished_run_redirects_only_the_page_that_watched_it(tmp_path):
+    client = portal_app(tmp_path, {"tecnoempleo": "ok"})
+    polled = client.get("/progreso", headers={"HX-Request": "true"}).text
+    assert "Búsqueda terminada" in polled and "Te llevo a los resultados" in polled
+    assert 'hx-get="/progreso/resultados" hx-trigger="load delay:4s"' in polled
+    # coming back to Búsqueda later shows the summary but must not bounce the user to Resultados
+    assert "Te llevo a los resultados" not in client.get("/buscar").text
+
+
+def test_results_link_lands_on_a_tab_with_offers(tmp_path, monkeypatch):
+    client = portal_app(tmp_path, {"tecnoempleo": "ok"})
+    plain = client.get("/progreso/resultados", follow_redirects=False)
+    assert plain.status_code == 303 and plain.headers["location"].startswith("/resultados?bucket=top")
+    monkeypatch.setattr("offerscan.service.bucket_counts", lambda views, f: {"top": 0, "review": 3, "discard": 1})
+    htmx = client.get("/progreso/resultados", headers={"HX-Request": "true"})
+    assert htmx.headers["HX-Redirect"].startswith("/resultados?bucket=review")
+    assert "junior_salary_max=35000" in htmx.headers["HX-Redirect"]
+
+
+def test_every_portal_failing_is_an_error_not_a_success(tmp_path):
+    client = portal_app(tmp_path, {"tecnoempleo": "captcha", "infojobs": "bloqueado"})
+    html = client.get("/progreso", headers={"HX-Request": "true"}).text
+    assert "Ningún portal ha devuelto ofertas" in html
+    assert "Búsqueda terminada" not in html and "Te llevo a los resultados" not in html
+
+
+def test_partial_portal_failure_is_called_out(tmp_path):
+    client = portal_app(tmp_path, {"tecnoempleo": "ok", "infojobs": "bloqueado"})
+    html = client.get("/progreso", headers={"HX-Request": "true"}).text
+    assert "Búsqueda terminada" in html and "1 portal no ha respondido (InfoJobs)" in html
+
+
+def test_lost_connection_is_announced_while_running(ctx):
+    client, app, _, release = ctx
+    release["go"] = False
+    client.post("/buscar", data=FORM)
+    running = client.get("/progreso").text
+    assert "hx-on::send-error" in running and "Se ha perdido la conexión" in running
+    release["go"] = True
+    wait_done(app)
+    assert "Se ha perdido la conexión" not in client.get("/progreso").text
 
 
 def test_results_filters_labels_and_export(ctx):

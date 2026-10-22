@@ -124,6 +124,7 @@ def create_app(
     app.state.db, app.state.manager, app.state.settings = db, manager, settings
     app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
     templates = Jinja2Templates(directory=HERE / "templates")
+    templates.env.filters["portal_name"] = lambda name: PORTALS.get(name, name)
     templates.env.globals.update(
         PROVINCES=[p.name for p in PROVINCES],
         REMOTE=REMOTE,
@@ -253,7 +254,27 @@ def create_app(
 
     @app.get("/progreso", response_class=HTMLResponse)
     def progress(request: Request):
-        return page(request, "_progreso.html", state=manager.snapshot())
+        state = manager.snapshot()
+        # Only the poll that sees the run finish sends the user on; reopening Búsqueda later must not bounce them.
+        auto_redirect = bool(request.headers.get("HX-Request")) and state.status == "done"
+        return page(request, "_progreso.html", state=state, auto_redirect=auto_redirect)
+
+    @app.get("/progreso/resultados")
+    def progress_results(request: Request):
+        """Results of the last run, on the first tab that has offers (never an empty «Mejores ofertas»)."""
+        filters = manager.snapshot().filters
+        params: dict[str, str] = {"bucket": "top"}
+        if filters is not None:
+            params["junior_salary_max"] = str(filters.junior_salary_max)
+            if filters.salary_min:
+                params["salary_min"] = str(filters.salary_min)
+        counts = results_context(QueryParams(params))["counts"]
+        if not counts.get("top") and counts.get("review"):
+            params["bucket"] = "review"
+        url = "/resultados?" + urlencode(params)
+        if request.headers.get("HX-Request"):
+            return Response(headers={"HX-Redirect": url})
+        return RedirectResponse(url, status_code=303)
 
     @app.get("/laya", response_class=HTMLResponse)
     def laya_status(request: Request, engine: str = "heuristic"):

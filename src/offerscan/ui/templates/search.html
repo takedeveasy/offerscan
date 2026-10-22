@@ -16,7 +16,7 @@
 {% endif %}
 
 <div class="layout">
-<form id="busqueda" class="card" hx-post="/buscar" hx-target="#progreso" hx-swap="outerHTML">
+<form id="busqueda" class="card" hx-post="/buscar" hx-target="#progreso" hx-swap="outerHTML show:#progreso:top">
   <fieldset>
     <legend>Tecnologías</legend>
     {{ checks("techs", TECHS, f.keywords) }}
