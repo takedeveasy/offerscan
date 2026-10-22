@@ -1,0 +1,44 @@
+{% set ST = {'pendiente': 'Pendiente', 'rastreando': 'Rastreando', 'hecho': 'Hecho', 'error': 'Error'} %}
+<div id="progreso" class="card progress" {% if state.status == 'running' %}hx-get="/progreso" hx-trigger="every 1s" hx-swap="outerHTML"{% endif %}>
+  <h2>Progreso</h2>
+  {% if problems %}
+    <div class="alert error">{% for p in problems %}<p>{{ p }}</p>{% endfor %}</div>
+  {% endif %}
+  {% if busy %}
+    <div class="alert warn"><strong>Ya hay una búsqueda en marcha.</strong> Espera a que termine (solo se ejecuta una a la vez); el progreso se muestra aquí abajo.</div>
+  {% endif %}
+
+  {% if state.status == 'idle' %}
+    <p class="muted">Todavía no has lanzado ninguna búsqueda en esta sesión.</p>
+  {% else %}
+    <p class="stage">
+      {% if state.status == 'running' %}<span class="spinner"></span>{% endif %}
+      <strong>{{ state.stage }}</strong>
+      {% if state.stage == 'Evaluando' %} · {{ state.evaluated }} ofertas puntuadas{% endif %}
+    </p>
+    {% if state.filters %}
+    <p class="filter-line">{{ state.filters.keywords | join(', ') }}{% if state.filters.locations %} · {{ state.filters.locations | join(', ') }}{% endif %}</p>
+    {% endif %}
+    <ul class="portal-status">
+      {% for p in state.portals.values() %}
+        <li>
+          <div class="portal-row">
+            <strong>{{ PORTALS.get(p.name, p.name) }}</strong>
+            <span class="badge st-{{ p.status }}">{{ ST.get(p.status, p.status) }}</span>
+          </div>
+          <p class="muted small">{{ p.items }} ofertas{% if p.filtered %} · {{ p.filtered }} filtradas después{% endif %}{% if p.blocked %} · {{ p.blocked }} bloqueos{% endif %}</p>
+          {% if p.error %}<p class="small error-text">{{ p.error }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if state.status == 'error' %}
+      <div class="alert error"><strong>La búsqueda se detuvo.</strong> {{ state.error }}</div>
+    {% elif state.status == 'done' %}
+      <div class="alert ok">
+        <strong>Búsqueda terminada.</strong>
+        <ul>{% for line in state.summary %}<li>{{ line }}</li>{% endfor %}</ul>
+        <p><a class="button" href="/resultados?bucket=top{% if state.filters %}&junior_salary_max={{ state.filters.junior_salary_max }}{% if state.filters.salary_min %}&salary_min={{ state.filters.salary_min }}{% endif %}{% endif %}">Ver resultados</a></p>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% from "_chips.html" import checks, provinces %}
+{% block title %}Resultados{% endblock %}
+{% block content %}
+<header class="page-head">
+  <p class="kicker">radar · revisión</p>
+  <h1>Resultados</h1>
+</header>
+{% if not has_data %}
+  <div class="card"><p>Aún no hay ofertas guardadas. <a href="/buscar">Lanza una búsqueda</a> primero.</p></div>
+{% else %}
+<form id="filtros" hx-get="/resultados" hx-target="#resultados" hx-push-url="true" hx-swap="innerHTML"
+      hx-trigger="change, input changed delay:350ms from:.live-text">
+  <details class="card filters" open>
+    <summary>Filtros</summary>
+    <p class="hint">Se aplican al instante sobre lo ya guardado, sin volver a rastrear.</p>
+    <div class="grid">
+      <label class="field">Texto
+        <input type="search" class="live-text" name="q" value="{{ f.q }}" placeholder="título, empresa, ciudad…">
+      </label>
+      <label class="field">Modalidad
+        <select name="work_mode">
+          <option value="">Todas</option>
+          {% for key, label in MODES.items() %}<option value="{{ key }}" {% if f.work_mode == key %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="field">Salario mínimo (€/año)
+        <input type="number" class="live-text" name="salary_min" min="0" step="1000" value="{{ f.salary_min or '' }}">
+      </label>
+      <label class="field">Tope salarial junior (€/año)
+        <input type="number" class="live-text" name="junior_salary_max" min="10000" step="1000" value="{{ junior_salary_max }}">
+      </label>
+      <label class="field">Etiqueta humana
+        <select name="label">
+          {% for key, text in [("", "Todas"), ("none", "Sin etiquetar"), ("junior", "Sí es junior"), ("no_junior", "No es junior")] %}
+          <option value="{{ key }}" {% if f.label == key %}selected{% endif %}>{{ text }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      {% if juniors %}
+      <label class="field">Emparejadas con
+        <select name="junior">
+          <option value="">Cualquiera</option>
+          {% for s in juniors %}<option value="{{ s }}" {% if f.junior == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+        </select>
+      </label>
+      {% endif %}
+    </div>
+    <div class="field">
+      <span>Portal</span>
+      <div class="chips">
+      {% for key, label in PORTALS.items() %}
+        <label class="chip"><input type="checkbox" name="sources" value="{{ key }}" {% if key in f.sources %}checked{% endif %}><span>{{ label }}</span></label>
+      {% endfor %}
+      </div>
+    </div>
+    <div class="field">Tecnologías (cualquiera de ellas)</div>
+    {{ checks("techs", TECHS, f.techs) }}
+    <details class="sub"><summary>Provincias {% if f.provinces %}({{ f.provinces | length }}){% endif %}</summary>
+      {{ provinces(f.provinces) }}
+    </details>
+  </details>
+
+  <div id="resultados">
+    {% include "_resultados.html" %}
+  </div>
+</form>
+{% endif %}
+{% endblock %}

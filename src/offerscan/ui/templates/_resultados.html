@@ -1,0 +1,33 @@
+<div class="tabs" role="tablist">
+  {% for key, label in BUCKETS.items() %}
+  <label class="tab {% if f.bucket == key %}on{% endif %} t-{{ key }}">
+    <input type="radio" name="bucket" value="{{ key }}" {% if f.bucket == key %}checked{% endif %}>
+    {{ label }} <span class="count">{{ counts[key] }}</span>
+  </label>
+  {% endfor %}
+  <a class="button ghost export" href="/exportar.csv?{{ qs() }}" download>Exportar CSV</a>
+</div>
+
+{% if f.bucket == 'top' %}
+  <p class="muted small">Ofertas con evidencia de ser para junior: sin descripción, salario por encima del tope o dudas sobre el nivel pasan a «Para revisar» o «Descartadas».</p>
+{% endif %}
+
+{% if not views %}
+  <div class="card empty">No hay ofertas con estos filtros{% if f.bucket != 'all' %} en «{{ BUCKETS[f.bucket] }}»{% endif %}. Prueba otra pestaña o quita algún filtro.</div>
+{% else %}
+<div class="table-wrap">
+<table class="offers">
+  <thead>
+    <tr><th>Punt.</th><th>Oferta</th><th>Motivos</th><th>¿Es junior?</th></tr>
+  </thead>
+  <tbody>
+    {% for v in views %}{% include "_fila.html" %}{% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="pager muted small">
+  {{ total }} oferta{{ '' if total == 1 else 's' }} · página {{ pagina }} de {{ pages }}
+  {% if pagina > 1 %}<a href="/resultados?{{ qs(pagina=pagina - 1) }}" hx-get="/resultados?{{ qs(pagina=pagina - 1) }}" hx-target="#resultados" hx-push-url="true">« Anterior</a>{% endif %}
+  {% if pagina < pages %}<a href="/resultados?{{ qs(pagina=pagina + 1) }}" hx-get="/resultados?{{ qs(pagina=pagina + 1) }}" hx-target="#resultados" hx-push-url="true">Siguiente »</a>{% endif %}
+</p>
+{% endif %}

@@ -1,0 +1,23 @@
+weights:
+  junior_friendly: 25
+  low_red_flags: 20
+  seniority: 15
+  low_experience: 15
+  offer_quality: 10
+  mentorship: 5
+  salary_visible: 4
+  recency: 3
+  work_mode: 3
+red_flags_discard: 0.7
+low_confidence_threshold: 0.5
+junior_target_discard: 0.6   # P(con_experiencia) >= this -> discard
+junior_target_min: 0.5       # P(junior) below this (or no_claro) -> review
+junior_salary_max: 35000     # EUR/year: salary_min above it -> discard; >= 85% of it -> review
+junior_salary_review_ratio: 0.85
+min_description_chars: 200   # shorter description -> never top
+match:
+  top_n: 20
+  offer_weight: 0.5
+  fit_weight: 0.5
+  top_threshold: 60
+  review_threshold: 45

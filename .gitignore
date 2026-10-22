@@ -1,0 +1,15 @@
+.venv/
+.venv-laya/
+data/
+reports/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.scrapling_cache/
+data_install.*
+config/searches/

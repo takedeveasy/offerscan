@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "_chips.html" import checks, provinces %}
+{% block title %}Perfil junior{% endblock %}
+{% block content %}
+<header class="page-head">
+  <p class="kicker">radar · perfiles</p>
+  <h1>{% if is_new %}Nuevo perfil junior{% else %}Perfil: {{ j.slug }}{% endif %}</h1>
+</header>
+{% if request.query_params.get('guardado') %}<div class="alert ok">Perfil guardado.</div>{% endif %}
+{% for e in errors %}<div class="alert error">{{ e }}</div>{% endfor %}
+
+<form method="post" action="/juniors" class="card">
+  <p class="warn">No escribas datos personales (nombre, email, teléfono): el perfil puede enviarse parcialmente a un motor de puntuación.</p>
+  <label class="field">Identificador (minúsculas, números y guiones)
+    <input type="text" name="slug" value="{{ j.slug if j else '' }}" {% if not is_new %}readonly{% endif %} required pattern="[a-z0-9][a-z0-9-]{1,40}" placeholder="backend-python-madrid">
+  </label>
+  <fieldset><legend>Stack principal</legend>
+    {{ checks("techs", TECHS, j.stack if j else []) }}
+    <label class="field">Otras tecnologías (comas)<input type="text" name="tech_extra" value="{{ tech_extra }}"></label>
+  </fieldset>
+  <label class="field">Deseable (comas)<input type="text" name="nice_to_have" value="{{ j.nice_to_have | join(', ') if j else '' }}"></label>
+  <div class="grid">
+    <label class="field">Idiomas (códigos, p. ej. es, en)<input type="text" name="languages" value="{{ j.languages | join(', ') if j else 'es' }}"></label>
+    <label class="field">Experiencia (meses)<input type="number" name="experience_months" min="0" value="{{ j.experience_months if j else 0 }}"></label>
+    <label class="field">Salario mínimo (€/año)<input type="number" name="min_salary" min="0" step="1000" value="{{ j.min_salary if j and j.min_salary else '' }}"></label>
+  </div>
+  <fieldset><legend>Provincias preferidas</legend>{{ provinces(j.locations if j else []) }}</fieldset>
+  <fieldset><legend>Modalidad preferida</legend>
+    {{ checks("work_modes", ["onsite", "hybrid", "remote"], (j.work_mode_pref | map(attribute='value') | list) if j else [], MODES) }}
+  </fieldset>
+  <label class="field">Intereses (comas)<input type="text" name="interests" value="{{ j.interests | join(', ') if j else '' }}"></label>
+  <div class="actions"><button class="primary" type="submit">Guardar perfil</button> <a class="button ghost" href="/juniors">Volver</a></div>
+</form>
+
+{% if j and not is_new %}
+<section>
+  <h2>Ofertas emparejadas</h2>
+  <form class="actions" method="post" action="/juniors/{{ j.slug }}/emparejar">
+    <button type="submit">Volver a emparejar (motor heurístico)</button>
+    <span class="hint">Usa las ofertas ya evaluadas; no rastrea de nuevo.</span>
+  </form>
+  {% if rows %}
+  <div class="table-wrap"><table class="offers">
+    <thead><tr><th>Punt.</th><th>Oferta</th><th>Motivos</th></tr></thead>
+    <tbody>
+    {% for m, v in rows %}
+      <tr class="b-{{ m.bucket.value }}">
+        <td data-label="Puntuación" class="score"><span class="scorebox">{{ '%.0f' | format(m.final_score) }}</span></td>
+        <td data-label="Oferta" class="title">
+          <a href="{{ v.offer.url }}" target="_blank" rel="noopener noreferrer">{{ v.offer.title }}</a>
+          <span class="badge b-{{ m.bucket.value }}">{{ BUCKETS[m.bucket.value] }}</span>
+          <p class="offer-meta">
+            <span>{{ v.offer.company or 'Sin empresa' }}</span>
+            {% if v.offer.location %}<span class="loc" title="{{ v.offer.location }}">{{ v.offer.location }}</span>{% endif %}
+          </p>
+        </td>
+        <td data-label="Motivos" class="reasons"><ul class="plain">{% for r in m.reasons[:4] %}<li>{{ r }}</li>{% endfor %}</ul></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}
+  <div class="card empty">Sin ofertas emparejadas todavía. Lanza una búsqueda con «Emparejar con los perfiles» marcado.</div>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

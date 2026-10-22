@@ -1,0 +1,27 @@
+{# macros shared by forms #}
+{% macro checks(name, options, selected, labels=None) %}
+  <div class="chips">
+  {% for opt in options %}
+    <label class="chip"><input type="checkbox" name="{{ name }}" value="{{ opt }}" {% if opt in selected %}checked{% endif %}><span>{{ labels[opt] if labels else opt }}</span></label>
+  {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro provinces(selected, name="provinces") %}
+  <input type="search" class="province-filter" placeholder="Buscar provincia…" oninput="filterChips(this)" autocomplete="off">
+  <div class="chips scroll">
+    <label class="chip remote"><input type="checkbox" name="{{ name }}" value="{{ REMOTE }}" {% if REMOTE in selected %}checked{% endif %}><span>{{ REMOTE }}</span></label>
+    {% for p in PROVINCES %}
+    <label class="chip"><input type="checkbox" name="{{ name }}" value="{{ p }}" {% if p in selected %}checked{% endif %}><span>{{ p }}</span></label>
+    {% endfor %}
+  </div>
+  <script>
+    function filterChips(input) {
+      const q = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      input.nextElementSibling.querySelectorAll(".chip").forEach(c => {
+        const t = c.textContent.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        c.style.display = t.includes(q) ? "" : "none";
+      });
+    }
+  </script>
+{% endmacro %}

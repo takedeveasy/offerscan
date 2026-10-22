@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Juniors{% endblock %}
+{% block content %}
+<header class="page-head">
+  <p class="kicker">radar · perfiles</p>
+  <h1>Perfiles junior</h1>
+  <p class="lede muted">Un perfil por junior, guardado en <code>config/juniors/*.yaml</code>. <strong>Sin datos personales</strong>: nada de nombre, email ni teléfono.</p>
+</header>
+<p class="page-actions"><a class="button primary" href="/juniors/nuevo">Nuevo perfil</a></p>
+<div class="cards">
+  {% for j in juniors %}
+  <article class="card">
+    <h2><a href="/juniors/{{ j.slug }}">{{ j.slug }}</a></h2>
+    <p>{% for s in j.stack %}<span class="tag">{{ s }}</span>{% endfor %}</p>
+    <p class="muted small">{{ j.locations | join(', ') or 'Sin ubicación preferida' }} · {{ j.experience_months }} meses de experiencia</p>
+    <p><strong>{{ counts[j.slug] }}</strong> ofertas emparejadas · <a href="/juniors/{{ j.slug }}">Ver y editar</a></p>
+  </article>
+  {% else %}
+  <div class="card empty">Todavía no hay perfiles. Crea el primero.</div>
+  {% endfor %}
+</div>
+{% endblock %}

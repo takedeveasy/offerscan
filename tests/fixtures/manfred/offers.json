@@ -1,0 +1,466 @@
+[
+ {
+  "id": 8511,
+  "position": "Full-stack con React Native",
+  "slug": "adopta-un-abuelo-full-stack-con-react-native-oct26",
+  "status": "ACTIVE",
+  "internalCode": "AdoptaUnAbuelo_Oct26_FullstackconReactNative",
+  "salaryFrom": 0,
+  "salaryTo": 45000,
+  "bonus": 0,
+  "remotePercentage": 60,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [],
+  "locations": [
+   "Madrid, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-21T09:14:20.659Z",
+  "company": {
+   "name": "Adopta Un Abuelo",
+   "web": "https://adoptaunabuelo.org/",
+   "photo": {
+    "id": 475895,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/21/58976378-72a9-40d9-bc46-4f5403727a21_Grupal-abril-2026-ed.jpg",
+    "filename": "26/10/21/58976378-72a9-40d9-bc46-4f5403727a21_Grupal-abril-2026-ed.jpg",
+    "title": "26/10/21/58976378-72a9-40d9-bc46-4f5403727a21_Grupal-abril-2026-ed.jpg",
+    "alt": "26/10/21/58976378-72a9-40d9-bc46-4f5403727a21_Grupal-abril-2026-ed.jpg"
+   },
+   "logo": {
+    "id": 140427,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/24/01/30/2751c27e-d200-4d88-8917-297ef797785b_adopta-un-abuelo-(1).png",
+    "filename": "Adopta-un-abuelo (1).png",
+    "title": "logo",
+    "alt": "logo"
+   },
+   "logoDark": {
+    "id": 139673,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/24/01/29/8b75bafe-0554-4b0d-97f9-911b5ca5df10_recurso-44x.png",
+    "filename": "Recurso 4@4x.png",
+    "title": "adoptaunabuelo",
+    "alt": "adoptaunabuelo"
+   },
+   "primaryColor": "#39abc3",
+   "secondaryColor": "#164871"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8510,
+  "position": "Lead Oracle Backend Developer",
+  "slug": "renta-4-lead-oracle-backend-developer-oct26",
+  "status": "ACTIVE",
+  "internalCode": "Renta4_Oct26_LeadOracleBackendDeveloper",
+  "salaryFrom": 0,
+  "salaryTo": 55000,
+  "bonus": 0,
+  "remotePercentage": 40,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "☄️ Crecimiento profesional",
+   "👌 Cultura",
+   "🏠 Híbrido",
+   "🎁 Perks",
+   "⛰️ Sólida en su sector"
+  ],
+  "locations": [
+   "Madrid, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-21T06:47:23.496Z",
+  "company": {
+   "name": "Renta 4",
+   "web": "https://www.r4.com/",
+   "photo": {
+    "id": 439045,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/25/09/12/ad145e4b-5cfc-4d6c-8b36-e21449b9785f_Foto-equipo-genArica.png",
+    "filename": "25/09/12/ad145e4b-5cfc-4d6c-8b36-e21449b9785f_Foto-equipo-genArica.png",
+    "title": "25/09/12/ad145e4b-5cfc-4d6c-8b36-e21449b9785f_Foto-equipo-genArica.png",
+    "alt": "25/09/12/ad145e4b-5cfc-4d6c-8b36-e21449b9785f_Foto-equipo-genArica.png"
+   },
+   "logo": {
+    "id": 439236,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/25/09/16/94b054d3-33c1-49b2-bb84-27dfebb72d79_Logo-Renta-4.png",
+    "filename": "25/09/16/94b054d3-33c1-49b2-bb84-27dfebb72d79_Logo-Renta-4.png",
+    "title": "25/09/16/94b054d3-33c1-49b2-bb84-27dfebb72d79_Logo-Renta-4.png",
+    "alt": "25/09/16/94b054d3-33c1-49b2-bb84-27dfebb72d79_Logo-Renta-4.png"
+   },
+   "logoDark": {
+    "id": 439268,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/25/09/16/150faa3e-121d-468b-bcc8-14e2081e1cb6_renta4banco.jpg",
+    "filename": "25/09/16/150faa3e-121d-468b-bcc8-14e2081e1cb6_renta4banco.jpg",
+    "title": "25/09/16/150faa3e-121d-468b-bcc8-14e2081e1cb6_renta4banco.jpg",
+    "alt": "25/09/16/150faa3e-121d-468b-bcc8-14e2081e1cb6_renta4banco.jpg"
+   },
+   "primaryColor": "#4d0f0f",
+   "secondaryColor": "#131111"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8506,
+  "position": "iOS Engineer",
+  "slug": "citibox-ios-engineer-oct26",
+  "status": "ACTIVE",
+  "internalCode": "Citibox_Oct26_MidiOSEngineer",
+  "salaryFrom": 45000,
+  "salaryTo": 55000,
+  "bonus": 0,
+  "remotePercentage": 100,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "☄️ Crecimiento profesional",
+   "📈 Empresa en crecimiento",
+   "🎯 Producto",
+   "🚀 Scale-up",
+   "✨ Buenas prácticas"
+  ],
+  "locations": [],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-14T13:01:19.715Z",
+  "company": {
+   "name": "Citibox",
+   "web": "https://citibox.com/es",
+   "photo": {
+    "id": 472015,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "filename": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "title": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "alt": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg"
+   },
+   "logo": {
+    "id": 472245,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "filename": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "title": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "alt": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png"
+   },
+   "logoDark": {
+    "id": 472244,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "filename": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "title": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "alt": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png"
+   },
+   "primaryColor": "#562ea5",
+   "secondaryColor": "#d8fe03"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8457,
+  "position": ".NET Developer",
+  "slug": "grupo-gof-net-developer-oct26",
+  "status": "ACTIVE",
+  "internalCode": "GrupoGOF_Ago26_NETDeveloper",
+  "salaryFrom": 0,
+  "salaryTo": 35000,
+  "bonus": 0,
+  "remotePercentage": 40,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "🤓 Aprendizaje continuo",
+   "🙌 Buen ambiente",
+   "🏠 Híbrido",
+   "⛰️ Sólida en su sector",
+   "✨ Buenas prácticas"
+  ],
+  "locations": [
+   "Santander, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-14T08:54:01.713Z",
+  "company": {
+   "name": "CENTRALIA",
+   "web": "https://www.grupogof.com/",
+   "photo": {
+    "id": 421974,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/25/03/21/045a05c2-68fc-4a49-8958-47d343605541_IMG_1582-%281%29.jpg",
+    "filename": "25/03/21/045a05c2-68fc-4a49-8958-47d343605541_IMG_1582-(1).jpg",
+    "title": "25/03/21/045a05c2-68fc-4a49-8958-47d343605541_IMG_1582-(1).jpg",
+    "alt": "25/03/21/045a05c2-68fc-4a49-8958-47d343605541_IMG_1582-(1).jpg"
+   },
+   "logo": {
+    "id": 475861,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/20/bc055497-c26c-4d07-a9d5-80af4a2d65d9_1e6944c3-fd6a-4465-9.png",
+    "filename": "26/10/20/bc055497-c26c-4d07-a9d5-80af4a2d65d9_1e6944c3-fd6a-4465-9.png",
+    "title": "26/10/20/bc055497-c26c-4d07-a9d5-80af4a2d65d9_1e6944c3-fd6a-4465-9.png",
+    "alt": "26/10/20/bc055497-c26c-4d07-a9d5-80af4a2d65d9_1e6944c3-fd6a-4465-9.png"
+   },
+   "logoDark": {
+    "id": 475860,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/20/a67c6a53-ff8a-47c9-b23f-b59b3a69cecb_1e6944c3-fd6a-4465-9.png",
+    "filename": "26/10/20/a67c6a53-ff8a-47c9-b23f-b59b3a69cecb_1e6944c3-fd6a-4465-9.png",
+    "title": "26/10/20/a67c6a53-ff8a-47c9-b23f-b59b3a69cecb_1e6944c3-fd6a-4465-9.png",
+    "alt": "26/10/20/a67c6a53-ff8a-47c9-b23f-b59b3a69cecb_1e6944c3-fd6a-4465-9.png"
+   },
+   "primaryColor": "#ffffff",
+   "secondaryColor": "#6fb991"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8508,
+  "position": "Data Scientist",
+  "slug": "inverence-modeling-engineer-oct26",
+  "status": "ACTIVE",
+  "internalCode": "Inverence_Oct26_ModelingEngineer",
+  "salaryFrom": 35000,
+  "salaryTo": 45000,
+  "bonus": 0,
+  "remotePercentage": 45,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "☄️ Crecimiento profesional",
+   "🏠 Híbrido",
+   "🤖 IA",
+   "💪 Reto técnico"
+  ],
+  "locations": [
+   "Madrid, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-19T11:37:02.151Z",
+  "company": {
+   "name": "Inverence",
+   "web": "https://inverence.com/es/llull/",
+   "photo": {
+    "id": 452347,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/03/05/ff989c0f-1508-4756-a912-6e33841e5e8c_Captura-de-pantalla-.jpg",
+    "filename": "26/03/05/ff989c0f-1508-4756-a912-6e33841e5e8c_Captura-de-pantalla-.jpg",
+    "title": "26/03/05/ff989c0f-1508-4756-a912-6e33841e5e8c_Captura-de-pantalla-.jpg",
+    "alt": "26/03/05/ff989c0f-1508-4756-a912-6e33841e5e8c_Captura-de-pantalla-.jpg"
+   },
+   "logo": {
+    "id": 452346,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/03/05/217b4333-979c-41e2-ab68-fcf4b526d33e_Logo-Inverence.png",
+    "filename": "26/03/05/217b4333-979c-41e2-ab68-fcf4b526d33e_Logo-Inverence.png",
+    "title": "26/03/05/217b4333-979c-41e2-ab68-fcf4b526d33e_Logo-Inverence.png",
+    "alt": "26/03/05/217b4333-979c-41e2-ab68-fcf4b526d33e_Logo-Inverence.png"
+   },
+   "logoDark": {
+    "id": 452345,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/03/05/9efbefc8-afbc-4531-b617-23d4ae4ace90_Captura-de-pantalla-.jpg",
+    "filename": "26/03/05/9efbefc8-afbc-4531-b617-23d4ae4ace90_Captura-de-pantalla-.jpg",
+    "title": "26/03/05/9efbefc8-afbc-4531-b617-23d4ae4ace90_Captura-de-pantalla-.jpg",
+    "alt": "26/03/05/9efbefc8-afbc-4531-b617-23d4ae4ace90_Captura-de-pantalla-.jpg"
+   },
+   "primaryColor": "#1d1d1b",
+   "secondaryColor": "#ffffff"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8507,
+  "position": "CTO",
+  "slug": "gaviota-group-cto-oct26",
+  "status": "ACTIVE",
+  "internalCode": "GaviotaGroup_Oct26_CTO",
+  "salaryFrom": 0,
+  "salaryTo": 100,
+  "bonus": 0,
+  "remotePercentage": 20,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [],
+  "locations": [
+   "Sax, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-20T15:17:35.545Z",
+  "company": {
+   "name": "Gaviota Group",
+   "web": "https://www.gaviotagroup.com/",
+   "photo": {
+    "id": 475859,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/20/55441f5e-7539-4592-9f1d-5bf333489b39_1762629788775.jpeg",
+    "filename": "26/10/20/55441f5e-7539-4592-9f1d-5bf333489b39_1762629788775.jpeg",
+    "title": "26/10/20/55441f5e-7539-4592-9f1d-5bf333489b39_1762629788775.jpeg",
+    "alt": "26/10/20/55441f5e-7539-4592-9f1d-5bf333489b39_1762629788775.jpeg"
+   },
+   "logo": {
+    "id": 475858,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/20/b9567535-3b1d-495e-bc2b-024146591781_Logosgaviota2017-Gri.png",
+    "filename": "26/10/20/b9567535-3b1d-495e-bc2b-024146591781_Logosgaviota2017-Gri.png",
+    "title": "26/10/20/b9567535-3b1d-495e-bc2b-024146591781_Logosgaviota2017-Gri.png",
+    "alt": "26/10/20/b9567535-3b1d-495e-bc2b-024146591781_Logosgaviota2017-Gri.png"
+   },
+   "logoDark": {
+    "id": 475854,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/10/20/a06be0d3-4eca-47ff-b1f1-52e61091b3ed_unnamed-%281%29.jpg",
+    "filename": "26/10/20/a06be0d3-4eca-47ff-b1f1-52e61091b3ed_unnamed-(1).jpg",
+    "title": "26/10/20/a06be0d3-4eca-47ff-b1f1-52e61091b3ed_unnamed-(1).jpg",
+    "alt": "26/10/20/a06be0d3-4eca-47ff-b1f1-52e61091b3ed_unnamed-(1).jpg"
+   },
+   "primaryColor": "#3c485d",
+   "secondaryColor": "#ff3642"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8505,
+  "position": "Data Analyst",
+  "slug": "citibox-data-analyst-oct26",
+  "status": "ACTIVE",
+  "internalCode": "Citibox_Oct26_DataAnalyst",
+  "salaryFrom": 50000,
+  "salaryTo": 60000,
+  "bonus": 0,
+  "remotePercentage": 100,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "☄️ Crecimiento profesional",
+   "📈 Empresa en crecimiento",
+   "🎯 Producto",
+   "🚀 Scale-up"
+  ],
+  "locations": [
+   "Madrid, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-09T13:54:14.453Z",
+  "company": {
+   "name": "Citibox",
+   "web": "https://citibox.com/es",
+   "photo": {
+    "id": 472015,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "filename": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "title": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg",
+    "alt": "26/09/16/5800f6ac-087a-43ff-ba83-bfffd20252f0_redd-francisco-5U_28.jpg"
+   },
+   "logo": {
+    "id": 472245,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "filename": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "title": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png",
+    "alt": "26/09/17/dbfa9a6a-ca33-411a-9c43-11ec2a144e16_logo.png"
+   },
+   "logoDark": {
+    "id": 472244,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "filename": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "title": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png",
+    "alt": "26/09/17/9c4d30e7-a41a-490a-aebb-2f4058ca1fc0_logo.png"
+   },
+   "primaryColor": "#562ea5",
+   "secondaryColor": "#d8fe03"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ },
+ {
+  "id": 8504,
+  "position": "Software Engineer",
+  "slug": "privera-software-engineer-oct26",
+  "status": "ACTIVE",
+  "internalCode": "Privera_Oct26_SoftwareEngineer",
+  "salaryFrom": 50000,
+  "salaryTo": 60000,
+  "bonus": 0,
+  "remotePercentage": 60,
+  "equityInf": 0,
+  "equitySup": 0,
+  "currency": "€",
+  "noStack": false,
+  "highlights": [
+   "☄️ Crecimiento profesional",
+   "🎯 Producto",
+   "🛸 Startup",
+   "👛 Stock Options",
+   "✨ Buenas prácticas"
+  ],
+  "locations": [
+   "Madrid, España"
+  ],
+  "offerLanguages": [
+   "ES"
+  ],
+  "updatedAt": "2026-10-13T09:57:01.029Z",
+  "company": {
+   "name": "Quartex (Privera: Grupo Enova)",
+   "web": "https://www.linkedin.com/company/priveratech/",
+   "photo": {
+    "id": 473313,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/28/0c4e24b9-13c2-493a-aaeb-8703cfa948c4_WhatsApp-Image-2026-.jpeg",
+    "filename": "26/09/28/0c4e24b9-13c2-493a-aaeb-8703cfa948c4_WhatsApp-Image-2026-.jpeg",
+    "title": "26/09/28/0c4e24b9-13c2-493a-aaeb-8703cfa948c4_WhatsApp-Image-2026-.jpeg",
+    "alt": "26/09/28/0c4e24b9-13c2-493a-aaeb-8703cfa948c4_WhatsApp-Image-2026-.jpeg"
+   },
+   "logo": {
+    "id": 473312,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/28/e3ac0ab8-fcd7-47ce-acb4-b883be79748c_solo-logo.png",
+    "filename": "26/09/28/e3ac0ab8-fcd7-47ce-acb4-b883be79748c_solo-logo.png",
+    "title": "26/09/28/e3ac0ab8-fcd7-47ce-acb4-b883be79748c_solo-logo.png",
+    "alt": "26/09/28/e3ac0ab8-fcd7-47ce-acb4-b883be79748c_solo-logo.png"
+   },
+   "logoDark": {
+    "id": 473311,
+    "url": "https://media-asgard.s3.eu-west-1.amazonaws.com/26/09/28/2f850ff1-aca2-426c-909d-9706f530a77c_Privera_mark_azul_al.png",
+    "filename": "26/09/28/2f850ff1-aca2-426c-909d-9706f530a77c_Privera_mark_azul_al.png",
+    "title": "26/09/28/2f850ff1-aca2-426c-909d-9706f530a77c_Privera_mark_azul_al.png",
+    "alt": "26/09/28/2f850ff1-aca2-426c-909d-9706f530a77c_Privera_mark_azul_al.png"
+   },
+   "primaryColor": "#5affc5",
+   "secondaryColor": "#ffffff"
+  },
+  "migratedToMarkdown": true,
+  "isFreelance": false,
+  "feeRateFrom": 0,
+  "feeRateTo": 0
+ }
+]

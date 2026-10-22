@@ -1,0 +1,9 @@
+{
+  "_note": "SYNTHETIC fixture shaped after the documented InfoJobs API v7 offer detail.",
+  "id": "ab12cd34",
+  "description": "<p>Buscamos un/a <b>desarrollador/a junior</b> para nuestro equipo.</p><ul><li>Mentoring continuo</li><li>Plan de formación</li></ul>",
+  "minRequirements": "Python, SQL y Git.",
+  "desiredRequirements": "Docker.",
+  "experienceMin": {"id": 2, "value": "Al menos 1 año"},
+  "skillsList": [{"skill": "Python"}, {"skill": "SQL"}]
+}

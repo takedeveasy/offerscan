@@ -1,0 +1,9 @@
+slug: backend-python-madrid
+stack: [python, django, fastapi, postgresql, docker, git]
+nice_to_have: [aws, redis, pytest]
+languages: [es, en]
+locations: [Madrid]
+work_mode_pref: [hybrid, onsite, remote]
+min_salary: 20000
+experience_months: 6
+interests: [backend, apis, data]

@@ -1,0 +1,5 @@
+{% if up %}
+  <p class="hint ok-text">✔ El servidor Laya responde en {{ url }}.</p>
+{% else %}
+  <p class="warn">Laya no responde en {{ url }}. Arráncalo en otra terminal con <code>.\scripts\laya.ps1</code> (Windows) o <code>bash scripts/laya.sh</code> (Mac/Linux). Tarda ~30 s. Si no, elige el motor heurístico.</p>
+{% endif %}

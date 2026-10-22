@@ -1,0 +1,17 @@
+{
+  "_note": "SYNTHETIC fixture shaped after the documented InfoJobs API v9 offer list (no credentials were available to record a real one).",
+  "currentPage": 1, "pageSize": 20, "totalResults": 2, "totalPages": 1,
+  "items": [
+    {"id": "ab12cd34", "title": "Programador/a Python Junior", "province": {"id": 33, "value": "Madrid"}, "city": "Madrid",
+     "link": "https://www.infojobs.net/madrid/programador-python-junior/of-iab12cd34", "category": {"id": 150, "value": "Informática y telecomunicaciones"},
+     "contractType": {"id": 8, "value": "Indefinido"}, "salaryMin": {"id": 1, "value": "22.000"}, "salaryMax": {"id": 2, "value": "26.000"},
+     "salaryPeriod": {"id": 3, "value": "Bruto/año"}, "experienceMin": {"id": 2, "value": "Al menos 1 año"},
+     "teleworking": {"id": 2, "value": "Híbrido"}, "published": "2026-10-19T09:30:00.000Z", "updated": "2026-10-20T10:00:00.000Z",
+     "author": {"id": "x1", "name": "Acme Software S.L."}, "requirementMin": "Grado en informática. Python y SQL."},
+    {"id": "ef56gh78", "title": "Desarrollador Java Senior", "province": {"id": 8, "value": "Barcelona"}, "city": "Barcelona",
+     "link": "https://www.infojobs.net/barcelona/java-senior/of-ief56gh78", "contractType": {"id": 8, "value": "Indefinido"},
+     "salaryDescription": "45.000 - 55.000 € bruto/año", "experienceMin": {"id": 6, "value": "Más de 5 años"},
+     "teleworking": {"id": 1, "value": "Presencial"}, "published": "2026-10-01T09:30:00.000Z",
+     "author": {"id": "x2", "name": "Globex"}, "requirementMin": "Más de 5 años de experiencia en Java."}
+  ]
+}

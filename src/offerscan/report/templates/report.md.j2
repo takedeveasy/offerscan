@@ -1,0 +1,18 @@
+# Ofertas para {{ junior.slug }}
+
+Generado {{ generated }} - motor: {{ engine }} - {{ total }} ofertas puntuadas.
+
+{% for title, rows in (("Mejores ofertas", top), ("Para revisar a mano", review)) %}
+## {{ title }} ({{ rows|length }})
+
+{% if rows %}
+| # | Puntos | Oferta | Empresa | Lugar | Salario | Motivos |
+|---|--------|--------|---------|-------|---------|---------|
+{% for r in rows %}
+| {{ loop.index }} | {{ "%.0f"|format(r.final_score) }} | [{{ r.title }}]({{ r.url }}) | {{ r.company }} | {{ r.location }} ({{ r.work_mode }}) | {{ r.salary }} | {{ r.reasons|join("; ") }} |
+{% endfor %}
+{% else %}
+_Ninguna._
+{% endif %}
+
+{% endfor %}

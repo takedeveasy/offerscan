@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ofertas para {{ junior.slug }}</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 1100px; color: #1f2937; padding: 0 1rem; }
+  h1 { margin-bottom: .2rem; } .meta { color: #6b7280; margin-bottom: 1.5rem; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 2rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  th { background: #f3f4f6; }
+  .score { font-weight: 700; font-size: 1.1rem; }
+  .badge { display: inline-block; padding: 0 .45rem; margin: 0 .2rem .2rem 0; border-radius: 9px; font-size: .75rem; background: #e5e7eb; }
+  .remote { background: #d1fae5; } .hybrid { background: #dbeafe; } .salary { background: #fef3c7; } .mentor { background: #ede9fe; }
+  ul { margin: .2rem 0 0 1rem; padding: 0; font-size: .85rem; color: #4b5563; }
+</style>
+</head>
+<body>
+<h1>Ofertas para {{ junior.slug }}</h1>
+<div class="meta">Generado {{ generated }} &middot; motor: {{ engine }} &middot; {{ total }} ofertas puntuadas.
+Las puntuaciones son una ayuda; la decision final es tuya.</div>
+
+{% macro table(rows) %}
+<table>
+  <tr><th>#</th><th>Puntos</th><th>Oferta</th><th>Detalles</th><th>Motivos</th></tr>
+  {% for r in rows %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td class="score">{{ "%.0f"|format(r.final_score) }}<br><small>oferta {{ "%.0f"|format(r.offer_score) }} / encaje {{ "%.0f"|format(r.fit_score) }}</small></td>
+    <td><a href="{{ r.url }}" rel="noopener">{{ r.title }}</a><br>{{ r.company }}<br><small>{{ r.location }} &middot; {{ r.source }}</small></td>
+    <td>
+      {% if r.work_mode in ("remote", "hybrid") %}<span class="badge {{ r.work_mode }}">{{ r.work_mode }}</span>{% endif %}
+      {% if r.salary %}<span class="badge salary">{{ r.salary }}</span>{% endif %}
+      {% if r.mentoring %}<span class="badge mentor">mentoring</span>{% endif %}
+    </td>
+    <td><ul>{% for reason in r.reasons %}<li>{{ reason }}</li>{% endfor %}</ul></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endmacro %}
+
+<h2>Mejores ofertas ({{ top|length }})</h2>
+{% if top %}{{ table(top) }}{% else %}<p>Ninguna oferta supera el umbral esta vez.</p>{% endif %}
+
+<h2>Para revisar a mano ({{ review|length }})</h2>
+{% if review %}{{ table(review) }}{% else %}<p>Nada pendiente de revision.</p>{% endif %}
+</body>
+</html>

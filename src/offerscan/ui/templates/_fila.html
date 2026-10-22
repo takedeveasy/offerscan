@@ -1,0 +1,25 @@
+{% set o = v.offer %}
+<tr id="o-{{ o.id }}" class="b-{{ v.bucket }}">
+  <td data-label="Puntuación" class="score">{% if v.score is not none %}<span class="scorebox">{{ '%.0f' | format(v.score) }}</span>{% else %}<span class="muted">—</span>{% endif %}</td>
+  <td data-label="Oferta" class="title">
+    <a href="{{ o.url }}" target="_blank" rel="noopener noreferrer">{{ o.title }}</a>
+    {% if v.label == 'junior' %}<span class="badge ok">Sí es junior</span>{% elif v.label == 'no_junior' %}<span class="badge bad">No es junior</span>{% endif %}
+    <p class="offer-meta">
+      <span>{{ o.company or 'Sin empresa' }}</span>
+      {% if o.location %}<span class="loc" title="{{ o.location }}">{{ o.location }}</span>{% endif %}
+      <span class="badge mode-{{ o.work_mode.value }}">{{ MODES[o.work_mode.value] }}</span>
+      <span>{{ format_salary(o) or 'Salario no publicado' }}</span>
+      <span class="badge src">{{ PORTALS.get(o.source, o.source) }}</span>
+      {% if o.published_at %}<time class="nowrap" datetime="{{ o.published_at.date().isoformat() }}">{{ o.published_at.date().isoformat() }}</time>{% endif %}
+    </p>
+    {% if v.techs %}<p class="offer-tags">{% for t in v.techs %}<span class="tag">{{ t }}</span>{% endfor %}</p>{% endif %}
+  </td>
+  <td data-label="Motivos" class="reasons">
+    {% if v.notes %}<details><summary>{{ v.notes | length }} nota{{ '' if v.notes | length == 1 else 's' }}</summary><ul>{% for n in v.notes %}<li>{{ n }}</li>{% endfor %}</ul><small class="muted">Motor: {{ v.engine }}</small></details>
+    {% else %}<small class="muted">Sin alertas · {{ v.engine }}</small>{% endif %}
+  </td>
+  <td data-label="¿Es junior?" class="actions-cell">
+    <button type="button" class="mini ok {% if v.label == 'junior' %}active{% endif %}" hx-post="/etiqueta/{{ o.id }}/{{ 'ninguna' if v.label == 'junior' else 'junior' }}" hx-target="#o-{{ o.id }}" hx-swap="outerHTML" hx-include="[name=junior_salary_max]" title="Marcar como oferta realmente junior">Sí es junior</button>
+    <button type="button" class="mini bad {% if v.label == 'no_junior' %}active{% endif %}" hx-post="/etiqueta/{{ o.id }}/{{ 'ninguna' if v.label == 'no_junior' else 'no_junior' }}" hx-target="#o-{{ o.id }}" hx-swap="outerHTML" hx-include="[name=junior_salary_max]" title="Marcar como oferta que no es junior">No es junior</button>
+  </td>
+</tr>

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% from "_chips.html" import checks, provinces %}
+{% block title %}Búsqueda{% endblock %}
+{% block content %}
+<header class="page-head">
+  <p class="kicker">radar · ofertas junior</p>
+  <h1>Buscar ofertas junior</h1>
+  <p class="lede muted">Elige filtros, pulsa <strong>Buscar</strong> y el rastreo se ejecuta en segundo plano. Después verás solo ofertas realmente junior en <a href="/resultados">Resultados</a>.</p>
+</header>
+
+{% if saved %}
+<div class="saved">
+  <span class="saved-label">Búsquedas guardadas</span>
+  {% for s in saved %}<a class="pill" href="/buscar?guardada={{ s }}">{{ s }}</a>{% endfor %}
+</div>
+{% endif %}
+
+<div class="layout">
+<form id="busqueda" class="card" hx-post="/buscar" hx-target="#progreso" hx-swap="outerHTML">
+  <fieldset>
+    <legend>Tecnologías</legend>
+    {{ checks("techs", TECHS, f.keywords) }}
+    <label class="field">Otras palabras clave (separadas por comas)
+      <input type="text" name="tech_extra" value="{{ tech_extra }}" placeholder="p. ej. flutter, laravel">
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Provincias</legend>
+    {{ provinces(f.locations) }}
+    <p class="hint">Sin ninguna marcada se busca en toda España.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Portales</legend>
+    {% for group, portals in PORTAL_GROUPS.items() %}
+    <p class="hint group">{{ group }}</p>
+    <div class="chips">
+      {% for key, label in portals.items() %}
+      <label class="chip"><input type="checkbox" name="sources" value="{{ key }}" {% if key in f.sources %}checked{% endif %}><span>{{ label }}</span></label>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <details class="hint">
+      <summary>Qué filtra cada portal</summary>
+      <ul class="notes">
+        {% for key, label in PORTALS.items() %}<li><strong>{{ label }}:</strong> {{ FILTER_NOTES[key] }}</li>{% endfor %}
+      </ul>
+    </details>
+    <p class="warn">⚠ LinkedIn: su robots.txt y condiciones de uso restringen el scraping. Se usa solo el endpoint público «guest», con ritmo bajo; actívalo bajo tu responsabilidad.</p>
+  </fieldset>
+
+  <div class="grid">
+    <fieldset>
+      <legend>Modalidad</legend>
+      {{ checks("work_modes", ["onsite", "hybrid", "remote"], f.work_modes, MODES) }}
+      <p class="hint">Sin ninguna marcada, todas.</p>
+    </fieldset>
+    <fieldset>
+      <legend>Experiencia y antigüedad</legend>
+      <label class="field">Experiencia máxima
+        <select name="max_experience">
+          {% for y, t in [(0, "Sin experiencia"), (1, "Hasta 1 año"), (2, "Hasta 2 años")] %}
+          <option value="{{ y }}" {% if f.max_experience_years == y %}selected{% endif %}>{{ t }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">Antigüedad máxima de la oferta
+        <select name="max_age_days">
+          {% for d in [7, 15, 30] %}<option value="{{ d }}" {% if f.max_age_days == d %}selected{% endif %}>{{ d }} días</option>{% endfor %}
+        </select>
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Salario</legend>
+      <label class="field">Salario mínimo (€/año, opcional)
+        <input type="number" name="salary_min" min="0" step="1000" value="{{ f.salary_min or '' }}">
+      </label>
+      <label class="field">Tope salarial junior (€/año)
+        <input type="number" name="junior_salary_max" min="10000" step="1000" value="{{ f.junior_salary_max }}">
+      </label>
+      <p class="hint">Por encima del tope, la oferta se descarta por ser de perfil con experiencia.</p>
+    </fieldset>
+  </div>
+
+  <div class="grid">
+    <fieldset>
+      <legend>Motor de puntuación</legend>
+      <label class="field">
+        <select name="engine" hx-get="/laya" hx-trigger="load, change" hx-target="#laya-estado" hx-include="this">
+          <option value="heuristic" {% if f.engine == 'heuristic' %}selected{% endif %}>Heurístico (rápido, sin servidor)</option>
+          <option value="laya" {% if f.engine == 'laya' %}selected{% endif %}>Laya (modelo local + heurística)</option>
+        </select>
+      </label>
+      <div id="laya-estado"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Profundidad</legend>
+      <label class="field">Páginas por portal
+        <select name="max_pages">
+          {% for n in [1, 2, 3, 5] %}<option value="{{ n }}" {% if f.max_pages == n %}selected{% endif %}>{{ n }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" name="match_juniors" {% if f.match_juniors %}checked{% endif %}> Emparejar con los perfiles de <a href="/juniors">Juniors</a></label>
+    </fieldset>
+  </div>
+
+  <div class="actions">
+    <button type="submit" class="primary">Buscar</button>
+    <span class="hint">La búsqueda se guarda en <code>config/searches/</code> para repetirla.</span>
+  </div>
+</form>
+
+<aside>
+  {% set problems = None %}{% set busy = False %}
+  {% include "_progreso.html" %}
+</aside>
+</div>
+{% endblock %}

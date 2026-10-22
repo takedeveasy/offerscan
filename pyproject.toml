@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "offerscan"
+version = "0.1.0"
+description = "Rastreador local y gratuito de ofertas junior en portales españoles (Jev AI opcional)"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+  "scrapling[fetchers,ai,shell]",
+  "httpx",
+  "pydantic>=2",
+  "pydantic-settings",
+  "sqlmodel",
+  "typer",
+  "rich",
+  "pyyaml",
+  "jinja2",
+  "rapidfuzz",
+  "python-dateutil",
+]
+
+[project.urls]
+Repository = "https://github.com/takedeveasy/offerscan"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "respx", "ruff"]
+ui = ["fastapi", "uvicorn", "python-multipart"]
+
+[project.scripts]
+offerscan = "offerscan.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+offerscan = ["report/templates/*.j2", "ui/templates/*.html", "ui/static/*", "ui/static/fonts/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["live: hits real portals/APIs (skipped by default; run with --live)"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]

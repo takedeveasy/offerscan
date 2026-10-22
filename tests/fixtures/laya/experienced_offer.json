@@ -1,0 +1,76 @@
+{
+ "model": "laya-rl-agent",
+ "answers": {
+  "seniority": {
+   "type": "choice",
+   "choice": "senior",
+   "probabilities": {
+    "internship": 0.0945,
+    "junior": 0.0359,
+    "mid": 0.0341,
+    "senior": 0.7138,
+    "unclear": 0.1217
+   },
+   "confidence": 0.4068,
+   "answer_confidence": 0.7138,
+   "action": {
+    "act_probability": 1.0
+   },
+   "x_jev_confidence": 0.6422
+  },
+  "junior_target": {
+   "type": "choice",
+   "choice": "con_experiencia",
+   "probabilities": {
+    "junior": 0.309,
+    "con_experiencia": 0.4411,
+    "no_claro": 0.2499
+   },
+   "confidence": 0.0256,
+   "answer_confidence": 0.4411,
+   "action": {
+    "act_probability": 1.0
+   },
+   "x_jev_confidence": 0.1616
+  },
+  "experience_required": {
+   "type": "score",
+   "score": 1.3203,
+   "legend": {
+    "0": "none",
+    "1": "under_1y",
+    "2": "1_2y",
+    "3": "3_4y",
+    "4": "5y_plus"
+   },
+   "probabilities": {
+    "0": 0.055,
+    "1": 0.7205,
+    "2": 0.1231,
+    "3": 0.0518,
+    "4": 0.0495
+   },
+   "confidence": 0.4061,
+   "answer_confidence": 0.7205,
+   "action": {
+    "act_probability": 1.0
+   },
+   "x_jev_confidence": 0.6415
+  }
+ },
+ "usage": {
+  "input_tokens": 1304,
+  "output_tokens": 0,
+  "state_tokens": 365,
+  "state_tokens_dropped": 0,
+  "truncated": false,
+  "truncated_questions": []
+ },
+ "routing": {
+  "model": "multilingual",
+  "repo": "convaiinnovations/laya/multilingual",
+  "reason": "explicit model='multilingual'",
+  "detection": null,
+  "workflow": null
+ }
+}

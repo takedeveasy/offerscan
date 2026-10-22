@@ -1,0 +1,2 @@
+# Verified 2026-10-21: GET /ofertas-trabajo/madrid/informatica-telecomunicaciones/react -> page state
+"search":{"keyword":{"value":"react","normalizedJobTitleIds":["2512_866c7813-2c03-47d7-9bdc-192cfbace57c"]},"countryIds":[],"provinceIds":["33"],"cityIds":[],"teleworkingIds":[],"categoryIds":["150"],"subcategoryIds":[],"educationIds":[],"workdayIds":[],"contractTypeIds":[],"segmentId":null,"salary":null,"experience":null,"sinceDate":"ANY","onlyForeignCountry":false,"sor

@@ -1,0 +1,105 @@
+sources:
+  tecnoempleo:
+    enabled: true
+    max_pages: 3
+    max_details: 30
+    download_delay: 1.0
+    robots_txt_obey: true
+  infojobs:
+    enabled: true
+    max_pages: 3
+    max_details: 20
+    download_delay: 2.0
+    robots_txt_obey: true
+  linkedin:
+    # Disabled by default: robots.txt disallows these paths and the ToS forbid scraping.
+    enabled: false
+    max_pages: 2
+    max_details: 15
+    download_delay: 4.0
+    robots_txt_obey: false
+  # Extra portals: off by default so a first run stays short; tick them in the UI or pass --sources.
+  infoempleo:
+    enabled: false
+    max_pages: 2
+    max_details: 20
+    download_delay: 1.5
+    robots_txt_obey: true
+  trabajos:
+    enabled: false
+    max_pages: 1
+    max_details: 20
+    download_delay: 1.5
+    robots_txt_obey: true
+  jobfluent:
+    enabled: false
+    max_pages: 2
+    max_details: 20
+    download_delay: 1.5
+    robots_txt_obey: true
+  manfred:
+    enabled: false
+    max_pages: 1
+    max_details: 40
+    download_delay: 1.0
+    robots_txt_obey: true
+  indeed:
+    # Listing page only (page 2 needs a login); blocked pages retry in a stealth browser.
+    enabled: false
+    max_pages: 1
+    max_details: 0
+    download_delay: 3.0
+    robots_txt_obey: true
+  glassdoor:
+    enabled: false
+    max_pages: 1
+    max_details: 0
+    download_delay: 3.0
+    robots_txt_obey: true
+  talent:
+    enabled: false
+    max_pages: 2
+    max_details: 20
+    download_delay: 1.5
+    robots_txt_obey: true
+  jooble:
+    enabled: false
+    max_pages: 1
+    max_details: 0
+    download_delay: 1.5
+    robots_txt_obey: true
+  himalayas:
+    # Remote-only JSON API, already filtered to Spain + entry level.
+    enabled: false
+    max_pages: 1
+    max_details: 0
+    download_delay: 1.0
+    robots_txt_obey: true
+  remotive:
+    # Remote-only JSON API; Remotive asks for a few calls a day at most. Its robots.txt disallows /api/*,
+    # so with robots_txt_obey: true it fetches nothing; set it to false only if you accept their API terms.
+    enabled: false
+    max_pages: 1
+    max_details: 0
+    download_delay: 2.0
+    robots_txt_obey: true
+
+keywords: [python, java, react, javascript, typescript, node, backend, frontend]
+locations: [Madrid, Barcelona, Remoto]
+junior_terms: [junior, trainee, becario]
+
+prefilter:
+  title_blacklist: [senior, sr, sr., lead, principal, head of, architect, manager, arquitecto, jefe,
+    responsable, director, lider, experto, tech lead, team lead, staff]
+  max_experience_years: 2   # offers asking >= max+1 years are discarded
+  max_age_days: 30
+  company_blacklist: []
+  # Not programming jobs. "a & b|c" = title has `a` and (`b` or `c`). Accent/gender insensitive.
+  non_dev_title_terms: [analista funcional, consultor funcional, "consultor & erp|sap|odoo|cegid|peoplenet|dynamics|salesforce|navision|sage|netsuite|oracle fusion",
+    service owner, tecnico de sistemas, tecnico de soporte, helpdesk, help desk, soporte, administrativo,
+    carretillero, mozo de almacen, operario, comercial, teleoperador, recepcionista, conductor,
+    vendedor, dependiente, recambista, pintor, camarero, limpieza,
+    mantenimiento, electricista, teacher, profesor]
+
+salary:
+  monthly_payments: 14
