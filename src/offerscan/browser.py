@@ -7,8 +7,10 @@ Chromium build. Here we install and check the exact executable Patchright will l
 
 from __future__ import annotations
 
+import asyncio
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 INSTALL_HINT = "offerscan install-browser"
@@ -17,6 +19,17 @@ MISSING_MARKERS = ("Executable doesn't exist", "playwright install", "patchright
 
 def executable_path() -> Path | None:
     """Where Patchright expects Chromium for the installed version (None if Patchright itself is missing)."""
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return _executable_path()
+    # The sync API refuses to run inside an event loop (the scrapers' one), and that error used to read as
+    # "browser missing": ask from a worker thread instead.
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        return pool.submit(_executable_path).result()
+
+
+def _executable_path() -> Path | None:
     try:
         from patchright.sync_api import sync_playwright
     except ImportError:

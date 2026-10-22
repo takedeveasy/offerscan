@@ -55,6 +55,26 @@ def test_doctor_points_to_install_browser(monkeypatch):
     assert "install-browser" in result.output.replace("\n", " ").replace("|", " ").replace(" ", "")
 
 
+def test_executable_path_works_inside_event_loop(monkeypatch, tmp_path):
+    """Like Playwright's sync API, the lookup fails on a thread with a running loop (the scrapers' one)."""
+    exe = tmp_path / "chrome.exe"
+
+    def sync_api_lookup():
+        try:
+            asyncio.get_running_loop()
+        except RuntimeError:
+            return exe
+        return None  # what the swallowed "Sync API inside the asyncio loop" error turned into
+
+    monkeypatch.setattr(browser, "_executable_path", sync_api_lookup)
+
+    async def inside_loop():
+        return browser.executable_path()
+
+    assert browser.executable_path() == exe
+    assert asyncio.run(inside_loop()) == exe
+
+
 def test_missing_browser_error_detection():
     assert browser.is_missing_browser_error("BrowserType.launch: Executable doesn't exist at C:\\chrome.exe")
     assert not browser.is_missing_browser_error("TimeoutError: page took too long")
